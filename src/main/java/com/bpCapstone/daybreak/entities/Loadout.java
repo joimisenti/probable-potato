@@ -15,7 +15,7 @@ public class Loadout {
     private String buildType;
 
     @Column(columnDefinition = "text[]")
-    @Convert(converter = com.bpCapstone.daybreak.entities.PostgreSqlStringArrayType.class)
+    @Type(value = com.bpCapstone.daybreak.entities.PostgreSqlStringArrayType.class)
     private String[] perks;
 
 }

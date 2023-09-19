@@ -2,6 +2,8 @@ package com.bpCapstone.daybreak.entities;
 
 import jakarta.persistence.*;
 
+
+// supabase password: pemmwAPO9qMx1L4t
 @Entity
 @Table(name = "Users")
 public class User {
