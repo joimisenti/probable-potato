@@ -18,9 +18,18 @@ public class Loadout {
     @Column(columnDefinition = "varchar(40)")
     private String buildType;
 
-    @Column(columnDefinition = "text[]")
-    @Type(value = com.bpCapstone.daybreak.entities.PostgreSqlStringArrayType.class)
-    private String[] perks;
+
+    // Create the Many-to-Many relationship with the Loadouts table
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(
+            name = "Loadout_Perks",
+            joinColumns = { @JoinColumn(name = "loadout_id") },
+            inverseJoinColumns = { @JoinColumn(name = "perk_id") }
+    )
+    private Set<Perk> perks = new HashSet<>();
+//    @Column(columnDefinition = "text[]")
+//    @Type(value = com.bpCapstone.daybreak.entities.PostgreSqlStringArrayType.class)
+//    private String[] perks;
 
     @Column(columnDefinition = "text")
     private String summary;
@@ -41,11 +50,11 @@ public class Loadout {
         this.buildType = buildType;
     }
 
-    public String[] getPerks() {
+    public Set<Perk> getPerks() {
         return perks;
     }
 
-    public void setPerks(String[] perks) {
+    public void setPerks(Set<Perk> perks) {
         this.perks = perks;
     }
 
@@ -62,11 +71,13 @@ public class Loadout {
     }
 
     // All-arguments Constructor
-    public Loadout(Long id, String buildType, String[] perks, String summary) {
+
+    public Loadout(Long id, String buildType, Set<Perk> perks, String summary, User user) {
         this.id = id;
         this.buildType = buildType;
         this.perks = perks;
         this.summary = summary;
+        this.user = user;
     }
 
     // Create the Many-to-One relationship to the Users table
@@ -75,12 +86,12 @@ public class Loadout {
     private User user;
 
     // Create the Many-to-Many relationship with the Loadouts table
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(
-            name = "Loadout_Perks",
-            joinColumns = { @JoinColumn(name = "loadout_id") },
-            inverseJoinColumns = { @JoinColumn(name = "perk_id") }
-    )
-    private Set<Perk> perkSet = new HashSet<>();
+//    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+//    @JoinTable(
+//            name = "Loadout_Perks",
+//            joinColumns = { @JoinColumn(name = "loadout_id") },
+//            inverseJoinColumns = { @JoinColumn(name = "perk_id") }
+//    )
+//    private Set<Perk> perkSet = new HashSet<>();
 
 }
