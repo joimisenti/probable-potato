@@ -1,6 +1,10 @@
 package com.bpCapstone.daybreak.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+
+import java.util.HashSet;
+import java.util.Set;
 
 
 // supabase password: pemmwAPO9qMx1L4t
@@ -49,4 +53,24 @@ public class User {
         this.username = username;
         this.password = password;
     }
+
+    // Create the One-to-Many relationship with the Loadouts table
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JsonManagedReference
+    private Set<Loadout> loadoutSet = new HashSet<>();
+//    @JoinTable(
+//    name = "Loadouts",
+//    joinColumns = { @JoinColumn(name = "loadout_id") },
+//    inverseJoinColumns = { @JoinColumn(name = "user_id")
+//    @JsonManagedReference
+//    private Set<Loadout> loadoutSet = new HashSet<>();
+
+//    @OneToMany
+//    @JoinTable(
+//            name = "Loadouts",
+//            joinColumns = @JoinColumn(name = "loadout_id"),
+//            inverseJoinColumns = @JoinColumn(name = "user_id")
+//    )
+//    private Set<Loadout> loadoutSet = new HashSet<>();
 }
