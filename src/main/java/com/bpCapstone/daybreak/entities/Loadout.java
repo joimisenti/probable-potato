@@ -85,6 +85,14 @@ public class Loadout {
     @JsonBackReference
     private User user;
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public Loadout(LoadoutDto loadoutDto) {
         if (loadoutDto.getBuildType() != null) {
             this.buildType = loadoutDto.getBuildType();
