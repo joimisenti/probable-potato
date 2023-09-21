@@ -1,8 +1,8 @@
 package com.bpCapstone.daybreak.entities;
 
+import com.bpCapstone.daybreak.dtos.LoadoutDto;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import org.hibernate.annotations.Type;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -84,6 +84,15 @@ public class Loadout {
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JsonBackReference
     private User user;
+
+    public Loadout(LoadoutDto loadoutDto) {
+        if (loadoutDto.getBuildType() != null) {
+            this.buildType = loadoutDto.getBuildType();
+        }
+        if (loadoutDto.getSummary() != null) {
+            this.summary = loadoutDto.getSummary();
+        }
+    }
 
     // Create the Many-to-Many relationship with the Loadouts table
 //    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})

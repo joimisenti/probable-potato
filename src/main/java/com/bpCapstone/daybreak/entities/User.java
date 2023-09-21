@@ -1,5 +1,6 @@
 package com.bpCapstone.daybreak.entities;
 
+import com.bpCapstone.daybreak.dtos.UserDto;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
@@ -59,6 +60,15 @@ public class User {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JsonManagedReference
     private Set<Loadout> loadoutSet = new HashSet<>();
+
+    public User(UserDto userDto) {
+        if (userDto.getUsername() != null) {
+            this.username = userDto.getUsername();
+        }
+        if (userDto.getPassword() != null) {
+            this.password = userDto.getPassword();
+        }
+    }
 //    @JoinTable(
 //    name = "Loadouts",
 //    joinColumns = { @JoinColumn(name = "loadout_id") },

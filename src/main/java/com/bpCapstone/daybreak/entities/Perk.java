@@ -1,5 +1,6 @@
 package com.bpCapstone.daybreak.entities;
 
+import com.bpCapstone.daybreak.dtos.PerkDto;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
@@ -56,4 +57,13 @@ public class Perk {
     // Create the Many-to-Many relationship with the Loadouts table
     @ManyToMany(mappedBy = "perks")
     private Set<Loadout> loadouts = new HashSet<>();
+
+    public Perk(PerkDto perkDto) {
+        if (perkDto.getName() != null) {
+            this.name = perkDto.getName();
+        }
+        if (perkDto.getSurvivor() != null) {
+            this.survivor = perkDto.getSurvivor();
+        }
+    }
 }
